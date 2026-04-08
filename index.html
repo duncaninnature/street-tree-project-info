@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>San José Street Tree Project</title>
+  <style>
+    :root {
+      --bg: #f6f7f4;
+      --card: #ffffff;
+      --ink: #243328;
+      --muted: #5e6d60;
+      --line: #d8ddd6;
+      --accent: #4b7a57;
+      --accent-dark: #35583e;
+      --soft: #ecf3ed;
+      --warn: #f4f1e6;
+      --shadow: 0 8px 24px rgba(0,0,0,0.06);
+      --radius: 18px;
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #eef5ef 0%, #dfeadf 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 34px 18px 28px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .kicker {
+      display: inline-block;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.65);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      color: var(--accent-dark);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .notice {
+      margin-top: 18px;
+      background: var(--warn);
+      border: 1px solid #e2dbc1;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 0.98rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin-top: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+      color: var(--accent-dark);
+    }
+
+    .stat-label {
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .stat-note,
+    .muted {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    main {
+      margin-top: 24px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 18px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.25rem;
+    }
+
+    h3 {
+      margin: 18px 0 8px;
+      font-size: 1rem;
+    }
+
+    ul {
+      margin: 10px 0 0 18px;
+      padding: 0;
+    }
+
+    li + li { margin-top: 6px; }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      border: 1px solid #d5e4d8;
+      font-size: 0.94rem;
+    }
+
+    .progress-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .progress-item {
+      border: 1px solid var(--line);
+      background: #fafbf9;
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .progress-name {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--accent-dark);
+    }
+
+    .faq {
+      margin-top: 18px;
+    }
+
+    details {
+      border-top: 1px solid var(--line);
+      padding: 12px 0;
+    }
+
+    details:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 800px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div class="kicker">Public information page</div>
+      <h1>San José Street Tree Project</h1>
+      <p class="subtitle">
+        This page explains why I may be visiting or observing street trees in your neighborhood. It is intended as a brief public information page for residents, not a full research report.
+      </p>
+      <div class="notice">
+        <strong>Please note:</strong> This page shares general project information and broad progress updates only. It does not report detailed results, homeowner-specific findings, or property-level conclusions.
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="grid stats">
+      <div class="card">
+        <div class="stat-value">4,123</div>
+        <div class="stat-label">Sample tree sites</div>
+        <div class="stat-note">Target field verification sites in the working sample.</div>
+      </div>
+      <div class="card">
+        <div class="stat-value">63</div>
+        <div class="stat-label">Neighborhoods in sample</div>
+        <div class="stat-note">Neighborhood units selected for field review.</div>
+      </div>
+      <div class="card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Trees visited so far</div>
+        <div class="stat-note">Update this number as fieldwork progresses.</div>
+      </div>
+      <div class="card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Neighborhood blocks visited</div>
+        <div class="stat-note">Broad progress metric only; no address-level reporting.</div>
+      </div>
+    </section>
+
+    <main class="main-grid">
+      <section class="card">
+        <h2>What this project is about</h2>
+        <p>
+          This project is examining what happens at previously documented street tree planting sites over time, especially where trees were recorded as being in poor condition or dead in a 2020 baseline inventory. The focus is on broad patterns of tree persistence, replacement, and site conversion.
+        </p>
+        <p>
+          In plain terms, I am trying to understand whether former tree sites remain tree sites, become planted with something else, or are converted to non-planting surfaces. The project also considers how these choices relate to long-term canopy potential and the City of San José’s urban forest goals.
+        </p>
+
+        <h3>What I may be doing in the field</h3>
+        <ul>
+          <li>Looking at the current condition of a street tree planting site from the public right-of-way</li>
+          <li>Checking whether the original tree is still present</li>
+          <li>Noting whether the site now contains a new tree, another plant type, bare planting area, hardscape, or a stump</li>
+          <li>Recording observations in a mobile GIS field form</li>
+        </ul>
+
+        <h3>What I am <em>not</em> doing</h3>
+        <ul>
+          <li>I am not evaluating private yards beyond what can be observed from public space</li>
+          <li>I am not issuing citations or acting in an enforcement role</li>
+          <li>I am not publishing household-specific findings on this page</li>
+        </ul>
+
+        <div class="cta-row">
+          <a class="button" href="#progress">View project progress</a>
+          <a class="button secondary" href="YOUR-CITY-PDF-LINK-HERE" target="_blank" rel="noopener noreferrer">City urban forest goals PDF</a>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>At-a-glance project details</h2>
+        <div class="pill-list">
+          <div class="pill">2020 baseline inventory</div>
+          <div class="pill">2026 field verification</div>
+          <div class="pill">Public right-of-way observations</div>
+          <div class="pill">Progress updates only</div>
+        </div>
+
+        <h3>Current site outcome categories</h3>
+        <div class="pill-list">
+          <div class="pill">SameTree</div>
+          <div class="pill">NewTree</div>
+          <div class="pill">WoodyPlant</div>
+          <div class="pill">NonWoodyPlant</div>
+          <div class="pill">BareSoilMulch</div>
+          <div class="pill">Hardscape</div>
+          <div class="pill">Stump</div>
+        </div>
+
+        <h3>Why there is a QR code</h3>
+        <p class="muted">
+          If someone sees me stopping near street trees, this page gives a quick explanation of the project and a simple way to verify that the activity is research-related and not enforcement or solicitation.
+        </p>
+      </aside>
+    </main>
+
+    <section class="card" id="progress" style="margin-top:18px;">
+      <h2>Progress so far</h2>
+      <p class="muted">
+        This section is intended for broad public-facing progress only. You can update the numbers below as fieldwork continues without sharing detailed findings prematurely.
+      </p>
+
+      <div class="progress-list">
+        <div class="progress-item">
+          <div class="progress-name">Visited neighborhood blocks</div>
+          <div>Replace this line with a running count or simple sentence, such as “17 block faces visited as of April 2026.”</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-name">Recent general areas visited</div>
+          <div>List broad locations only, such as neighborhood names or major cross-streets, not exact addresses.</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-name">Field season note</div>
+          <div>Example: “Observations are ongoing and summaries shown here are preliminary and descriptive only.”</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card faq">
+      <h2>Frequently asked questions</h2>
+      <details>
+        <summary>Why are you looking at street trees in front of homes?</summary>
+        <p>
+          The project is focused on street tree planting sites and long-term patterns in urban forest change. Observations are made from public space and are limited to broad site conditions relevant to the study.
+        </p>
+      </details>
+      <details>
+        <summary>Are you with the City?</summary>
+        <p>
+          This page can be customized to explain your role clearly. If you want, replace this text with a short statement about whether the work is independent research, graduate research, contractor-supported fieldwork, or another role.
+        </p>
+      </details>
+      <details>
+        <summary>Will exact results for my property be shared here?</summary>
+        <p>
+          No. This page is intended for general project explanation and broad progress reporting only.
+        </p>
+      </details>
+    </section>
+
+    <footer>
+      San José Street Tree Project public information page. Update text, counts, and links as the project progresses.
+    </footer>
+  </div>
+</body>
+</html>
