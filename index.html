@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>San José Street Tree Project</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
   <style>
     :root {
       --bg: #f6f7f4;
@@ -18,9 +26,13 @@
       --shadow: 0 8px 24px rgba(0,0,0,0.06);
       --radius: 18px;
       --max: 980px;
+      --visited: #5b8f68;
+      --inprogress: #d2a93b;
+      --notvisited: #cfd8cf;
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -158,24 +170,6 @@
       font-size: 0.94rem;
     }
 
-    .progress-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .progress-item {
-      border: 1px solid var(--line);
-      background: #fafbf9;
-      border-radius: 14px;
-      padding: 12px 14px;
-    }
-
-    .progress-name {
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
     .cta-row {
       display: flex;
       flex-wrap: wrap;
@@ -217,6 +211,45 @@
       font-weight: 700;
     }
 
+    .map-wrap {
+      margin-top: 18px;
+    }
+
+    #map {
+      width: 100%;
+      height: 520px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.15);
+      display: inline-block;
+    }
+
+    .swatch.visited { background: var(--visited); }
+    .swatch.inprogress { background: var(--inprogress); }
+    .swatch.notvisited { background: var(--notvisited); }
+
     footer {
       margin-top: 28px;
       padding-top: 18px;
@@ -228,6 +261,10 @@
     @media (max-width: 800px) {
       .main-grid {
         grid-template-columns: 1fr;
+      }
+
+      #map {
+        height: 420px;
       }
     }
   </style>
@@ -241,7 +278,7 @@
         This page explains why I may be visiting or observing street trees in your neighborhood. It is intended as a brief public information page for residents, not a full research report.
       </p>
       <div class="notice">
-        <strong>Please note:</strong> This page shares general project information and broad progress updates only. It does not report detailed results, homeowner-specific findings, or property-level conclusions.
+        <strong>Please note:</strong> This page shares general project information only. It does not report homeowner-specific findings, exact tree locations, or property-level conclusions.
       </div>
     </div>
   </header>
@@ -257,16 +294,6 @@
         <div class="stat-value">63</div>
         <div class="stat-label">Neighborhoods in sample</div>
         <div class="stat-note">Neighborhood units selected for field review.</div>
-      </div>
-      <div class="card">
-        <div class="stat-value">0</div>
-        <div class="stat-label">Trees visited so far</div>
-        <div class="stat-note">Update this number as fieldwork progresses.</div>
-      </div>
-      <div class="card">
-        <div class="stat-value">0</div>
-        <div class="stat-label">Neighborhood blocks visited</div>
-        <div class="stat-note">Broad progress metric only; no address-level reporting.</div>
       </div>
     </section>
 
@@ -296,7 +323,7 @@
         </ul>
 
         <div class="cta-row">
-          <a class="button" href="#progress">View project progress</a>
+          <a class="button" href="#map-section">View neighborhood map</a>
           <a class="button secondary" href="YOUR-CITY-PDF-LINK-HERE" target="_blank" rel="noopener noreferrer">City urban forest goals PDF</a>
         </div>
       </section>
@@ -307,14 +334,14 @@
           <div class="pill">2020 baseline inventory</div>
           <div class="pill">2026 field verification</div>
           <div class="pill">Public right-of-way observations</div>
-          <div class="pill">Progress updates only</div>
+          <div class="pill">Neighborhood-level map only</div>
         </div>
 
         <h3>Current site outcome categories</h3>
         <div class="pill-list">
           <div class="pill">SameTree</div>
-          <div class="pill">NewTree</div>
-          <div class="pill">WoodyPlant</div>
+          <div class="pill">ReplacementTree</div>
+          <div class="pill">OtherWoodyPlant</div>
           <div class="pill">NonWoodyPlant</div>
           <div class="pill">BareSoilMulch</div>
           <div class="pill">Hardscape</div>
@@ -328,25 +355,18 @@
       </aside>
     </main>
 
-    <section class="card" id="progress" style="margin-top:18px;">
-      <h2>Progress so far</h2>
+    <section class="card map-wrap" id="map-section">
+      <h2>Neighborhood fieldwork map</h2>
       <p class="muted">
-        This section is intended for broad public-facing progress only. You can update the numbers below as fieldwork continues without sharing detailed findings prematurely.
+        This map shows neighborhood-level fieldwork status only. It does not show individual trees or exact addresses.
       </p>
 
-      <div class="progress-list">
-        <div class="progress-item">
-          <div class="progress-name">Visited neighborhood blocks</div>
-          <div>Replace this line with a running count or simple sentence, such as “17 block faces visited as of April 2026.”</div>
-        </div>
-        <div class="progress-item">
-          <div class="progress-name">Recent general areas visited</div>
-          <div>List broad locations only, such as neighborhood names or major cross-streets, not exact addresses.</div>
-        </div>
-        <div class="progress-item">
-          <div class="progress-name">Field season note</div>
-          <div>Example: “Observations are ongoing and summaries shown here are preliminary and descriptive only.”</div>
-        </div>
+      <div id="map"></div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="swatch visited"></span> Visited</div>
+        <div class="legend-item"><span class="swatch inprogress"></span> In progress</div>
+        <div class="legend-item"><span class="swatch notvisited"></span> Not yet visited</div>
       </div>
     </section>
 
@@ -367,14 +387,85 @@
       <details>
         <summary>Will exact results for my property be shared here?</summary>
         <p>
-          No. This page is intended for general project explanation and broad progress reporting only.
+          No. This page is intended for general project explanation and neighborhood-level fieldwork status only.
         </p>
       </details>
     </section>
 
     <footer>
-      San José Street Tree Project public information page. Update text, counts, and links as the project progresses.
+      San José Street Tree Project public information page. Neighborhood map shows broad fieldwork status only.
     </footer>
   </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script>
+    const map = L.map('map', {
+      scrollWheelZoom: false
+    }).setView([37.3387, -121.8853], 11);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    function getStatusColor(status) {
+      switch (status) {
+        case 'visited':
+          return '#5b8f68';
+        case 'in_progress':
+          return '#d2a93b';
+        case 'not_visited':
+        default:
+          return '#cfd8cf';
+      }
+    }
+
+    function styleFeature(feature) {
+      return {
+        fillColor: getStatusColor(feature.properties.status),
+        weight: 1.5,
+        opacity: 1,
+        color: '#5e6d60',
+        fillOpacity: 0.65
+      };
+    }
+
+    fetch('neighborhood_status.geojson')
+      .then(response => response.json())
+      .then(data => {
+        const geojsonLayer = L.geoJSON(data, {
+          style: styleFeature,
+          onEachFeature: function (feature, layer) {
+            const props = feature.properties || {};
+            const name = props.name || 'Neighborhood';
+            const sampleN = props.sample_n ?? '—';
+            const status = props.status || 'not_visited';
+
+            const statusLabel = status === 'in_progress'
+              ? 'In progress'
+              : status === 'visited'
+                ? 'Visited'
+                : 'Not yet visited';
+
+            layer.bindPopup(`
+              <strong>${name}</strong><br>
+              Sample tree sites: ${sampleN}<br>
+              Fieldwork status: ${statusLabel}
+            `);
+          }
+        }).addTo(map);
+
+        map.fitBounds(geojsonLayer.getBounds(), { padding: [20, 20] });
+      })
+      .catch(error => {
+        console.error('Error loading GeoJSON:', error);
+        document.getElementById('map').innerHTML =
+          '<div style="padding:20px;color:#5e6d60;">Map data could not be loaded.</div>';
+      });
+  </script>
 </body>
 </html>
