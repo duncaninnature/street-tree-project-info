@@ -14,21 +14,21 @@
 
   <style>
     :root {
-      --bg: #f6f7f4;
-      --card: #ffffff;
-      --ink: #243328;
-      --muted: #5e6d60;
-      --line: #d8ddd6;
-      --accent: #4b7a57;
-      --accent-dark: #35583e;
-      --soft: #ecf3ed;
-      --warn: #f4f1e6;
-      --shadow: 0 8px 24px rgba(0,0,0,0.06);
+      --bg: #f7f1e8;
+      --card: #fffaf4;
+      --ink: #4a3124;
+      --muted: #7a5b48;
+      --line: #ddc9b8;
+      --accent: #a65a2e;
+      --accent-dark: #7d3f1d;
+      --soft: #f3e2d3;
+      --warn: #f6ead2;
+      --shadow: 0 8px 24px rgba(90, 54, 30, 0.10);
       --radius: 18px;
       --max: 980px;
-      --visited: #5b8f68;
-      --inprogress: #d2a93b;
-      --notvisited: #cfd8cf;
+      --visited: #8b5e3c;
+      --inprogress: #d18b2f;
+      --notvisited: #cbb7a3;
     }
 
     * { box-sizing: border-box; }
@@ -48,7 +48,7 @@
     }
 
     header {
-      background: linear-gradient(135deg, #eef5ef 0%, #dfeadf 100%);
+      background: linear-gradient(135deg, #f6e4cf 0%, #e9c8aa 55%, #dca176 100%);
       border-bottom: 1px solid var(--line);
     }
 
@@ -61,7 +61,7 @@
     .kicker {
       display: inline-block;
       padding: 6px 10px;
-      background: rgba(255,255,255,0.65);
+      background: rgba(255, 250, 244, 0.78);
       border: 1px solid var(--line);
       border-radius: 999px;
       font-size: 0.88rem;
@@ -73,19 +73,20 @@
       margin: 0 0 10px;
       font-size: clamp(1.9rem, 4vw, 3rem);
       line-height: 1.1;
+      color: #5a2e16;
     }
 
     .subtitle {
       max-width: 760px;
       font-size: 1.05rem;
-      color: var(--muted);
+      color: #6d4b39;
       margin: 0;
     }
 
     .notice {
       margin-top: 18px;
       background: var(--warn);
-      border: 1px solid #e2dbc1;
+      border: 1px solid #ddc39a;
       border-radius: 14px;
       padding: 14px 16px;
       font-size: 0.98rem;
@@ -141,11 +142,13 @@
     h2 {
       margin: 0 0 12px;
       font-size: 1.25rem;
+      color: #6b3419;
     }
 
     h3 {
       margin: 18px 0 8px;
       font-size: 1rem;
+      color: #7d3f1d;
     }
 
     ul {
@@ -166,8 +169,9 @@
       padding: 8px 10px;
       border-radius: 999px;
       background: var(--soft);
-      border: 1px solid #d5e4d8;
+      border: 1px solid #e1c7b1;
       font-size: 0.94rem;
+      color: #5f3b2b;
     }
 
     .cta-row {
@@ -188,9 +192,18 @@
       font-weight: 700;
     }
 
+    .button:hover {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
     .button.secondary {
-      background: white;
+      background: #fffaf4;
       color: var(--accent-dark);
+    }
+
+    .button.secondary:hover {
+      background: #f3e2d3;
     }
 
     .faq {
@@ -209,6 +222,7 @@
     summary {
       cursor: pointer;
       font-weight: 700;
+      color: #6b3419;
     }
 
     .map-wrap {
@@ -328,27 +342,27 @@
         </div>
       </section>
 
-     <aside class="card">
-  <h2>At-a-glance project details</h2>
-  <div class="pill-list">
-    <div class="pill">2020 baseline inventory</div>
-    <div class="pill">2026 field verification</div>
-    <div class="pill">Public right-of-way observations</div>
-    <div class="pill">Neighborhood-level map only</div>
-  </div>
+      <aside class="card">
+        <h2>At-a-glance project details</h2>
+        <div class="pill-list">
+          <div class="pill">2020 baseline inventory</div>
+          <div class="pill">2026 field verification</div>
+          <div class="pill">Public right-of-way observations</div>
+          <div class="pill">Neighborhood-level map only</div>
+        </div>
 
-  <h3>Current site outcome categories</h3>
-  <div class="pill-list">
-    <div class="pill">SameTree</div>
-    <div class="pill">ReplacementTree</div>
-    <div class="pill">OtherWoodyPlant</div>
-    <div class="pill">NonWoodyPlant</div>
-    <div class="pill">BareSoilMulch</div>
-    <div class="pill">Hardscape</div>
-    <div class="pill">Stump</div>
-  </div>
-</aside>
-</main>
+        <h3>Current site outcome categories</h3>
+        <div class="pill-list">
+          <div class="pill">SameTree</div>
+          <div class="pill">ReplacementTree</div>
+          <div class="pill">OtherWoodyPlant</div>
+          <div class="pill">NonWoodyPlant</div>
+          <div class="pill">BareSoilMulch</div>
+          <div class="pill">Hardscape</div>
+          <div class="pill">Stump</div>
+        </div>
+      </aside>
+    </main>
 
     <section class="card map-wrap" id="map-section">
       <h2>Neighborhood fieldwork map</h2>
@@ -410,12 +424,12 @@
     function getStatusColor(status) {
       switch (status) {
         case 'visited':
-          return '#5b8f68';
+          return '#8b5e3c';
         case 'in_progress':
-          return '#d2a93b';
+          return '#d18b2f';
         case 'not_visited':
         default:
-          return '#cfd8cf';
+          return '#cbb7a3';
       }
     }
 
@@ -424,7 +438,7 @@
         fillColor: getStatusColor(feature.properties.status),
         weight: 1.5,
         opacity: 1,
-        color: '#5e6d60',
+        color: '#7a5b48',
         fillOpacity: 0.65
       };
     }
@@ -459,7 +473,7 @@
       .catch(error => {
         console.error('Error loading GeoJSON:', error);
         document.getElementById('map').innerHTML =
-          '<div style="padding:20px;color:#5e6d60;">Map data could not be loaded.</div>';
+          '<div style="padding:20px;color:#7a5b48;">Map data could not be loaded.</div>';
       });
   </script>
 </body>
